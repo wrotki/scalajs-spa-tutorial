@@ -22,8 +22,10 @@ case class UpdateMotd(potResult: Pot[String] = Empty) extends PotAction[String, 
   override def next(value: Pot[String]) = UpdateMotd(value)
 }
 
+case object RefreshRest extends Action
+
 // The base model of our application
-case class RootModel(todos: Pot[Todos], motd: Pot[String])
+case class RootModel(todos: Pot[Todos], motd: Pot[String], rest: Pot[Rest])
 
 case class Todos(items: Seq[TodoItem]) {
   def updated(newItem: TodoItem) = {
@@ -38,6 +40,8 @@ case class Todos(items: Seq[TodoItem]) {
   }
   def remove(item: TodoItem) = Todos(items.filterNot(_ == item))
 }
+
+case class Rest(path: String)
 
 /**
   * Handles actions related to todos
@@ -78,7 +82,7 @@ class MotdHandler[M](modelRW: ModelRW[M, Pot[String]]) extends ActionHandler(mod
 // Application circuit
 object SPACircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
   // initial application model
-  override protected def initialModel = RootModel(Empty, Empty)
+  override protected def initialModel = RootModel(Empty, Empty, Empty)
   // combine all handlers into one
   override protected val actionHandler = composeHandlers(
     new TodoHandler(zoomRW(_.todos)((m, v) => m.copy(todos = v))),
