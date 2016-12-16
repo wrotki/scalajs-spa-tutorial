@@ -26,8 +26,6 @@ object Rest {
 
     def render(p: Props, s: State) =
         AceEditor(AceEditor.Props("Some program"))
-//        ,
-//        Button(Button.Props(doNothing(None)), Icon.plusSquare, " New")
   }
 
   // create the React component for To Do management
