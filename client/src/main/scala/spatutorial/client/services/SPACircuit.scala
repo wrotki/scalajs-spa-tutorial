@@ -24,6 +24,9 @@ case class UpdateMotd(potResult: Pot[String] = Empty) extends PotAction[String, 
 
 case object RefreshRest extends Action
 
+case class UpdateRest(rest: Rest) extends Action
+
+
 // The base model of our application
 case class RootModel(todos: Pot[Todos], motd: Pot[String], rest: Pot[Rest])
 
@@ -79,6 +82,17 @@ class MotdHandler[M](modelRW: ModelRW[M, Pot[String]]) extends ActionHandler(mod
   }
 }
 
+class RestHandler[M](modelRW: ModelRW[M, Pot[Rest]]) extends ActionHandler(modelRW) {
+  implicit val runner = new RunAfterJS
+
+  override def handle = {
+    case RefreshRest =>
+      noChange
+    case UpdateRest(rest) =>
+      noChange
+  }
+}
+
 // Application circuit
 object SPACircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
   // initial application model
@@ -86,6 +100,7 @@ object SPACircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
   // combine all handlers into one
   override protected val actionHandler = composeHandlers(
     new TodoHandler(zoomRW(_.todos)((m, v) => m.copy(todos = v))),
-    new MotdHandler(zoomRW(_.motd)((m, v) => m.copy(motd = v)))
+    new MotdHandler(zoomRW(_.motd)((m, v) => m.copy(motd = v))),
+    new RestHandler(zoomRW(_.rest)((m, v) => m.copy(rest = v)))
   )
 }
