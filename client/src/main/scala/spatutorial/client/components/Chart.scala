@@ -98,11 +98,12 @@ object Chart {
       // access context of the canvas
       val ctx = scope.getDOMNode().getContext("2d")
       // create the actual chart using the 3rd party component
-      scope.props.style match {
+      val ret = scope.props.style match {
         case LineChart => new JSChart(ctx, ChartConfiguration("line", scope.props.data))
         case BarChart => new JSChart(ctx, ChartConfiguration("bar", scope.props.data))
         case _ => throw new IllegalArgumentException
       }
+      ret
     }).build
 
   def apply(props: ChartProps) = Chart(props)

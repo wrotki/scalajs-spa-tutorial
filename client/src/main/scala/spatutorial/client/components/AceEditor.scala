@@ -5,44 +5,76 @@ import japgolly.scalajs.react.vdom.prefix_<^.{<, ^}
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.prefix_<^._
 import japgolly.univeq.UnivEq
-import org.scalajs.dom.raw.HTMLCanvasElement
+import org.scalajs.dom.raw.HTMLElement
 
 import scala.scalajs.js.annotation.JSName
+import scalacss.internal.Attrs.{marginBottom, position}
 
 //import scala.language.implicitConversions
 import scala.scalajs.js
 import scalacss.ScalaCssReact._
 import scalacss.Defaults._
 
+
+// https://github.com/chandu0101/scalajs-react-components/blob/master/doc/InteropWithThirdParty.md
+
+
 @js.native
 trait AceProps extends js.Object {
-  def program: String = js.native
+  def mode: String = js.native
+
+  def theme: String = js.native
+
+  def name: String = js.native
+
+  def fontSize: Int = js.native
+
+  def height: String = js.native
+
+  def value: String = js.native
 }
 
 object AceProps {
-  def apply(program: String): AceProps = {
+  def apply(mode: String,
+            theme: String,
+            name: String,
+            fontSize: Int,
+            height: String,
+            value: String
+           ): AceProps = {
     js.Dynamic.literal(
-      program = program
+      mode = mode,
+      theme = theme,
+      name = name,
+      fontSize = fontSize,
+      height = height,
+      value = value
     ).asInstanceOf[AceProps]
   }
 }
 
 @js.native
 @JSName("ReactAce")
-class AceEditor(props: AceProps) extends js.Object
+class AceEditor(props: AceProps) extends JsComponentM[AceProps, js.Object, HTMLElement]
 
 object AceEditor {
 
-  case class Props(program: String)
-
-  val component = ReactComponentB[Props]("AceEditor")
-    .render( _ => <.div("Editor should be here:"))
+//  ,^.style("width: 500; height: 500")
+  val component = ReactComponentB[AceProps]("AceEditor")
+    .render(_ => <.div("id".reactAttr := "ace"))
     .componentDidMount(scope => Callback {
       // access context of the canvas
-      new AceEditor(AceProps("Some program"))
-    }).build
+      new AceEditor(scope.props)
+    })
+    .build
 
-  def apply(props: Props, children: ReactNode*) = component(props, children: _*)
+  //  val component = ReactComponentB[AceProps]("AceEditor")
+  //    //.render(p => new AceEditor(p))
+  //    .render_P(p => new AceEditor(p))
+  //    .build
+
+  def apply(props: AceProps, children: ReactNode*) = component(props, children: _*)
+
   def apply() = component
 
 }

@@ -78,6 +78,7 @@ object Settings {
     "org.webjars" % "chartjs" % versions.chartjs / "Chart.js" minified "Chart.min.js",
     "org.webjars" % "log4javascript" % versions.log4js / "js/log4javascript_uncompressed.js" minified "js/log4javascript.js",
     "org.webjars.npm" % "react-ace" % versions.reactAce / "react-ace.js" minified "react-ace.min.js" commonJSName "ReactAce",
-    ProvidedJS / "assets/webpackshim.js" dependsOn "react-ace.js"
+    ProvidedJS / "assets/webpackshim.js" dependsOn "react-ace.js",
+    ProvidedJS / "assets/sampleReactComponent.js" dependsOn "react-with-addons.js"
   ))
 }
