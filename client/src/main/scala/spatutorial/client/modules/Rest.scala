@@ -5,7 +5,7 @@ import diode.react.ModelProxy
 import japgolly.scalajs.react.vdom.prefix_<^.<
 import japgolly.scalajs.react.{BackendScope, Callback, ReactComponentB, ReactElement}
 import spatutorial.client.components.Bootstrap.{Button, Panel}
-import spatutorial.client.components.{AceEditor, AceProps, Icon, TodoList}
+import spatutorial.client.components._
 import spatutorial.client.services._
 
 object Rest {
@@ -24,15 +24,18 @@ object Rest {
       $.modState(s => s.copy())
     }
 
-    def render(p: Props, s: State) =
-        AceEditor(AceProps(
-          mode="javascript",
-          theme="monokai",
-          name="ace",
-          fontSize=14,
-          height="6em",
-          value="console.log(\"Hello, world!\");"
-        ))
+    def render(p: Props, s: State) = {
+      //        AceEditor(AceProps(
+      //          mode="javascript",
+      //          theme="monokai",
+      //          name="ace",
+      //          fontSize=14,
+      //          height="6em",
+      //          value="console.log(\"Hello, world!\");"
+      //        ))
+      val ret = SampleReactComponent("Foohfah", "Boooflept").apply()
+      ret
+    }
   }
 
   // create the React component for To Do management

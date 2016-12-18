@@ -1,4 +1,4 @@
-var SampleReactComponent = React.createClass({
+var SampleReactComponentClass = React.createClass({
   getInitialState: function() {
     return {num:0,num2:0};
   },
@@ -12,3 +12,5 @@ var SampleReactComponent = React.createClass({
     this.setState({num:n});
   }
 });
+
+var SampleReactComponent = React.createFactory(SampleReactComponentClass);
