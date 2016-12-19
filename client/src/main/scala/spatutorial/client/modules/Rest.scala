@@ -33,7 +33,7 @@ object Rest {
       //          height="6em",
       //          value="console.log(\"Hello, world!\");"
       //        ))
-      val ret = SampleReactComponent("Foohfah", "Boooflept").apply()
+      val ret = SampleReactComponent(SampleReactComponentProps("Foohfah", "Boooflept"))
       ret
     }
   }

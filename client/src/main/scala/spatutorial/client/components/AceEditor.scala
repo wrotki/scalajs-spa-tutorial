@@ -7,6 +7,7 @@ import japgolly.scalajs.react.vdom.prefix_<^._
 import japgolly.univeq.UnivEq
 import org.scalajs.dom.raw.HTMLElement
 
+import scala.scalajs.js.{Dynamic, UndefOr, undefined}
 import scala.scalajs.js.annotation.JSName
 import scalacss.internal.Attrs.{marginBottom, position}
 
@@ -78,3 +79,4 @@ object AceEditor {
   def apply() = component
 
 }
+
