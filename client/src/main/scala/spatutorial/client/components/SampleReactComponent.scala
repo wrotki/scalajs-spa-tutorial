@@ -16,7 +16,7 @@ trait SampleReactComponentProps extends js.Object {
 
 @js.native
 @JSName("SampleReactComponent")
-class SampleReactComponent(props: SampleReactComponentProps) extends JsComponentU[AceProps, js.Object, HTMLElement]
+class SampleReactComponent(props: SampleReactComponentProps) extends JsComponentU[SampleReactComponentProps, js.Object, HTMLElement]
 
 object SampleReactComponentProps {
   def apply(propOne: String,
@@ -45,19 +45,3 @@ object SampleReactComponent {
   def apply() = component
 
 }
-
-//case class SampleReactComponentWrong(propOne : UndefOr[String] = undefined,
-//                                propTwo : UndefOr[String] = undefined) {
-//  def apply(): ReactComponentU_ = {
-//
-//    def toJS = {
-//      val p = Dynamic.literal()
-//      propOne.foreach(v => p.updateDynamic("propOne")(v))
-//      propTwo.foreach(v => p.updateDynamic("propTwo")(v))
-//      p
-//    }
-//
-//    val f = Dynamic.global.SampleReactComponent
-//    f(toJS).asInstanceOf[ReactComponentU_]
-//  }
-//}

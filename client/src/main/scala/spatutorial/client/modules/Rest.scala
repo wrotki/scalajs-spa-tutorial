@@ -25,16 +25,15 @@ object Rest {
     }
 
     def render(p: Props, s: State) = {
-      //        AceEditor(AceProps(
-      //          mode="javascript",
-      //          theme="monokai",
-      //          name="ace",
-      //          fontSize=14,
-      //          height="6em",
-      //          value="console.log(\"Hello, world!\");"
-      //        ))
-      val ret = SampleReactComponent(SampleReactComponentProps("Foohfah", "Boooflept"))
-      ret
+              AceEditor(AceProps(
+                mode="javascript",
+                theme="monokai",
+                name="aceeditormf",
+                fontSize=14,
+                value="console.log(\"Hello, world!\");"
+              ))
+//      val ret = SampleReactComponent(SampleReactComponentProps("Foohfah", "Boooflept"))
+//      ret
     }
   }
 

@@ -32,6 +32,8 @@ trait AceProps extends js.Object {
 
   def height: String = js.native
 
+  def width: String = js.native
+
   def value: String = js.native
 }
 
@@ -40,7 +42,8 @@ object AceProps {
             theme: String,
             name: String,
             fontSize: Int,
-            height: String,
+            height: String = "500px",
+            width: String = "500px",
             value: String
            ): AceProps = {
     js.Dynamic.literal(
@@ -49,30 +52,26 @@ object AceProps {
       name = name,
       fontSize = fontSize,
       height = height,
+      width = width,
       value = value
     ).asInstanceOf[AceProps]
   }
 }
 
 @js.native
-@JSName("ReactAce")
-class AceEditor(props: AceProps) extends JsComponentM[AceProps, js.Object, HTMLElement]
+@JSName("ReactAceFactory")
+class AceEditor(props: AceProps) extends JsComponentU[AceProps, js.Object, HTMLElement]
 
 object AceEditor {
 
-//  ,^.style("width: 500; height: 500")
-  val component = ReactComponentB[AceProps]("AceEditor")
-    .render(_ => <.div("id".reactAttr := "ace"))
-    .componentDidMount(scope => Callback {
-      // access context of the canvas
-      new AceEditor(scope.props)
-    })
-    .build
+  def renderEditor(p: AceProps) = {
+    val ae = new AceEditor(p)
+    ae
+  }
 
-  //  val component = ReactComponentB[AceProps]("AceEditor")
-  //    //.render(p => new AceEditor(p))
-  //    .render_P(p => new AceEditor(p))
-  //    .build
+  val component = ReactComponentB[AceProps]("AceEditor")
+    .render_P(p => renderEditor(p))
+    .build
 
   def apply(props: AceProps, children: ReactNode*) = component(props, children: _*)
 

@@ -19,5 +19,6 @@
         var $env = (typeof __ScalaJSEnv === "object" && __ScalaJSEnv) ? __ScalaJSEnv : {};
 
         console.log("ReactAce:"+ g.ReactAce);// = module.exports = ReactAce;
-        g.ReactAce = g.ReactAce.default;
+        //g.ReactAce = g.ReactAce.default;
+        g.ReactAceFactory = g.ReactAce.default
 })();
