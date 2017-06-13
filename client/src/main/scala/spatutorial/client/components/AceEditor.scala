@@ -58,24 +58,24 @@ object AceProps {
   }
 }
 
-@js.native
-@JSName("ReactAceFactory")
-class AceEditor(props: AceProps) extends JsComponentU[AceProps, js.Object, HTMLElement]
-
-object AceEditor {
-
-  def renderEditor(p: AceProps) = {
-    val ae = new AceEditor(p)
-    ae
-  }
-
-  val component = ReactComponentB[AceProps]("AceEditor")
-    .render_P(p => renderEditor(p))
-    .build
-
-  def apply(props: AceProps, children: ReactNode*) = component(props, children: _*)
-
-  def apply() = component
-
-}
-
+//@js.native
+//@JSName("ReactAceFactory")
+//class AceEditor(props: AceProps) extends JsComponentU[AceProps, js.Object, HTMLElement]
+//
+//object AceEditor {
+//
+//  def renderEditor(p: AceProps) = {
+//    val ae = new AceEditor(p)
+//    ae
+//  }
+//
+//  val component = ReactComponentB[AceProps]("AceEditor")
+//    .render_P(p => renderEditor(p))
+//    .build
+//
+//  def apply(props: AceProps, children: ReactNode*) = component(props, children: _*)
+//
+//  //def apply() = component()
+//
+//}
+//

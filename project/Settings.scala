@@ -38,8 +38,7 @@ object Settings {
     val chartjs = "2.1.3"
 
     val scalajsScripts = "1.0.0"
-    //val reactAce ="1.0.1"
-    val reactAce ="3.5.0"
+    val reactAce ="4.1.0"
   }
 
   /**

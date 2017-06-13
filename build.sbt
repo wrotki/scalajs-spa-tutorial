@@ -17,30 +17,42 @@ lazy val sharedJS = shared.js.settings(name := "sharedJS")
 // use eliding to drop some debug code in the production build
 lazy val elideOptions = settingKey[Seq[String]]("Set limit for elidable functions")
 
+val commonSettings = Seq(
+  version := Settings.version,
+  scalaVersion := Settings.versions.scala,
+  scalacOptions ++= Settings.scalacOptions,
+  libraryDependencies ++= Settings.scalajsDependencies.value,
+  // by default we do development build, no eliding
+  elideOptions := Seq(),
+  scalacOptions ++= elideOptions.value,
+  jsDependencies ++= Settings.jsDependencies.value,
+  // RuntimeDOM is needed for tests
+  jsDependencies += RuntimeDOM % "test",
+  // yes, we want to package JS dependencies
+  skip in packageJSDependencies := false,
+  // use Scala.js provided launcher code to start the client app
+  persistLauncher := true,
+  persistLauncher in Test := false,
+  // use uTest framework for tests
+  testFrameworks += new TestFramework("utest.runner.Framework")
+)
+
+lazy val macros: Project = (project in file("macros"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "macros"
+  )
+  .enablePlugins(ScalaJSPlugin, ScalaJSWeb)
+
 // instantiate the JS project for SBT with some additional settings
 lazy val client: Project = (project in file("client"))
+  .settings(commonSettings: _*)
   .settings(
-    name := "client",
-    version := Settings.version,
-    scalaVersion := Settings.versions.scala,
-    scalacOptions ++= Settings.scalacOptions,
-    libraryDependencies ++= Settings.scalajsDependencies.value,
-    // by default we do development build, no eliding
-    elideOptions := Seq(),
-    scalacOptions ++= elideOptions.value,
-    jsDependencies ++= Settings.jsDependencies.value,
-    // RuntimeDOM is needed for tests
-    jsDependencies += RuntimeDOM % "test",
-    // yes, we want to package JS dependencies
-    skip in packageJSDependencies := false,
-    // use Scala.js provided launcher code to start the client app
-    persistLauncher := true,
-    persistLauncher in Test := false,
-    // use uTest framework for tests
-    testFrameworks += new TestFramework("utest.runner.Framework")
+    name := "client"
   )
   .enablePlugins(ScalaJSPlugin, ScalaJSWeb)
   .dependsOn(sharedJS)
+  .dependsOn(macros)
 
 // Client projects (just one in this case)
 lazy val clients = Seq(client)

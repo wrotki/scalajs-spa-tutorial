@@ -4,7 +4,7 @@ import diode.data.Pot
 import diode.react.ModelProxy
 import japgolly.scalajs.react.vdom.prefix_<^.<
 import japgolly.scalajs.react.{BackendScope, Callback, ReactComponentB, ReactElement}
-import spatutorial.client.components.Bootstrap.{Button, Panel}
+import spatutorial.client.components.Bootstrap.{Button, CommonStyle, Panel}
 import spatutorial.client.components._
 import spatutorial.client.services._
 
@@ -25,13 +25,17 @@ object Rest {
     }
 
     def render(p: Props, s: State) = {
-              AceEditor(AceProps(
-                mode="javascript",
-                theme="monokai",
-                name="aceeditormf",
-                fontSize=14,
-                value="console.log(\"Hello, world!\");"
-              ))
+      Panel(Panel.Props("Message of the day"),
+        // render messages depending on the state of the Pot
+        AceEditorGenerated(
+          mode="javascript",
+          theme="monokai",
+          name="aceeditormf",
+          fontSize=14,
+          value="console.log(\"Hello, world!\");"
+        )()
+      )
+
 //      val ret = SampleReactComponent(SampleReactComponentProps("Foohfah", "Boooflept"))
 //      ret
     }
@@ -40,6 +44,7 @@ object Rest {
   // create the React component for To Do management
   val component = ReactComponentB[Props]("TODO")
     .initialState(State("/foo", "{\"bar\": null}")) // initial state from TodoStore
+    //.stateless
     .renderBackend[Backend]
     .componentDidMount(scope => scope.backend.mounted(scope.props))
     .build
