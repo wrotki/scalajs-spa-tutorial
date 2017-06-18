@@ -17,6 +17,7 @@ lazy val sharedJS = shared.js.settings(name := "sharedJS")
 // use eliding to drop some debug code in the production build
 lazy val elideOptions = settingKey[Seq[String]]("Set limit for elidable functions")
 
+
 val commonSettings = Seq(
   version := Settings.version,
   scalaVersion := Settings.versions.scala,

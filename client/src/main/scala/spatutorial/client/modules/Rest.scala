@@ -2,7 +2,6 @@ package spatutorial.client.modules
 
 import diode.data.Pot
 import diode.react.ModelProxy
-import japgolly.scalajs.react.vdom.prefix_<^.<
 import japgolly.scalajs.react.{BackendScope, Callback, ReactComponentB, ReactElement}
 import spatutorial.client.components.Bootstrap.{Button, CommonStyle, Panel}
 import spatutorial.client.components._
@@ -42,7 +41,7 @@ object Rest {
   }
 
   // create the React component for To Do management
-  val component = ReactComponentB[Props]("TODO")
+  val component = ReactComponentB[Props]("Rest")
     .initialState(State("/foo", "{\"bar\": null}")) // initial state from TodoStore
     //.stateless
     .renderBackend[Backend]
